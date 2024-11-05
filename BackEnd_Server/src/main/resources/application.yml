@@ -1,0 +1,18 @@
+spring:
+
+  application:
+    name: BackEnd_Server
+
+  config:
+    import: "optional:file:.env[.properties]"
+
+  datasource:
+    url: jdbc:mariadb://${DB_URL}/sejongclass
+    username: root
+    password: ${DB_PASSWORD}
+    driver-class-name: org.mariadb.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
