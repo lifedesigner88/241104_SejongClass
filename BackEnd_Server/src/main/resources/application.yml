@@ -4,12 +4,12 @@ spring:
     name: BackEnd_Server
 
   config:
-    import: "optional:file:.env[.properties]"
+    import: "optional:file:BackEnd_Server/.env[.properties]"
 
   datasource:
-    url: jdbc:mariadb://${DB_URL:localhost:3306}/sejongclass
+    url: jdbc:mariadb://${DB_URL}/sejongclass
     username: root
-    password: ${DB_PASSWORD:1234}
+    password: ${DB_PASSWORD}
     driver-class-name: org.mariadb.jdbc.Driver
 
   jpa:
