@@ -1,35 +1,69 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import {RouterLink, RouterView} from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import {ref} from "vue";
+
+
+const createUserData = ref({
+      name: '',
+      email: '',
+      password: ''
+    }
+);
+const baseUrl = import.meta.env.VITE_API_URL;
+const createResult = ref('');
+
+
+
+
+const createUser = async () => {
+
+  const response = await fetch(`${baseUrl}/user`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(createUserData.value)
+  });
+  createResult.value = await response.json();
+}
+
+
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
+  <header class="redBorder">
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
       </nav>
-    </div>
+    <form>
+      <input v-model="createUserData.name" placeholder="userName"/>
+      <input v-model="createUserData.email" placeholder="userEmail"/>
+      <input v-model="createUserData.password" placeholder="userPassword"/>
+      <button @click.prevent="createUser">Sign Up</button>
+    </form>
   </header>
 
-  <RouterView />
+  <RouterView/>
 </template>
 
 <style scoped>
+
+.redBorder {
+  border: 2px solid red;
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  padding: 2rem;
+
+}
+
 header {
   line-height: 1.5;
   max-height: 100vh;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
 
 nav {
   width: 100%;
