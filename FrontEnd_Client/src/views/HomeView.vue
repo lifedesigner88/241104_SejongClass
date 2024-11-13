@@ -1,5 +1,13 @@
 <script setup>
 import {ref} from "vue";
+import {useUserStore} from "../stores/user.js";
+import {useCounterStore} from '../stores/counter'
+
+const userStore = useUserStore();
+const counterStore = useCounterStore()
+
+
+const createResult = ref('');
 
 const createUserData = ref({
       name: '',
@@ -8,19 +16,14 @@ const createUserData = ref({
     }
 );
 
-const BASE_URL = import.meta.env.VITE_API_URL;
-const createResult = ref('');
 const createUser = async () => {
+  await userStore.createUser(createUserData.value);
+  createResult.value = userStore.testResult;
+}
 
-  const response = await fetch(`${BASE_URL}/user`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(createUserData.value)
-  });
-  createResult.value = await response.json();
 
+const incrementCount = () => {
+  counterStore.increment()
 }
 
 </script>
@@ -34,7 +37,18 @@ const createUser = async () => {
       <input v-model="createUserData.password" placeholder="userPassword"/>
       <button @click.prevent="createUser">Sign Up</button>
     </form>
+    {{ createResult }}
 
+
+    <div>
+      <h1>Counter View</h1>
+      <p>Count: {{ counterStore.count }}</p>
+      <p>Double Count: {{ counterStore.doubleCount }}</p>
+      <button @click="incrementCount">Increment</button>
+
+    </div>
 
   </main>
+
+
 </template>
