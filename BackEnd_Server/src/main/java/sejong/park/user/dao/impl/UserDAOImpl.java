@@ -5,6 +5,8 @@ import sejong.park.user.dao.UserDAO;
 import sejong.park.user.entity.User;
 import sejong.park.user.repository.UserRepository;
 
+import java.util.List;
+
 @Component
 public class UserDAOImpl implements UserDAO {
 
@@ -17,6 +19,11 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User CreateUser(User user) {
         return userRepository.save(user);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
 }

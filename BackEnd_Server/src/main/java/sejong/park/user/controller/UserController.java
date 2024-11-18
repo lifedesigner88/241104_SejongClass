@@ -2,6 +2,7 @@ package sejong.park.user.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +10,8 @@ import sejong.park.user.dto.req.CreateUserReqDto;
 import sejong.park.user.dto.res.UserResDto;
 import sejong.park.user.service.UserCRUD;
 import sejong.park.user.service.impl.UserCRUDImpl;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("user")
@@ -21,11 +24,16 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserResDto> createUser(@RequestBody CreateUserReqDto dtd) {
+    public ResponseEntity<UserResDto> createUser(@RequestBody CreateUserReqDto dto) {
 
-        UserResDto userResDto = userCRUD.createUser(dtd);
+        UserResDto userResDto = userCRUD.createUser(dto);
 
         return ResponseEntity.ok(userResDto);
+    }
+
+    @GetMapping("list")
+    public ResponseEntity<List<UserResDto>> getUsers() {
+        return ResponseEntity.ok(userCRUD.getUsers());
     }
 
 }
