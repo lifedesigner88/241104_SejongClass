@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import sejong.park.user.dto.req.AuthReqDto;
 import sejong.park.user.dto.req.CreateUserReqDto;
+import sejong.park.user.dto.res.AuthResDto;
 import sejong.park.user.dto.res.UserResDto;
 import sejong.park.user.service.UserCRUD;
 import sejong.park.user.service.impl.UserCRUDImpl;
@@ -29,6 +31,13 @@ public class UserController {
         UserResDto userResDto = userCRUD.createUser(dto);
 
         return ResponseEntity.ok(userResDto);
+    }
+
+    @PostMapping
+    public ResponseEntity<AuthResDto> loginUser(@RequestBody AuthReqDto dto) {
+
+        return ResponseEntity.ok(null);
+
     }
 
     @GetMapping("list")
