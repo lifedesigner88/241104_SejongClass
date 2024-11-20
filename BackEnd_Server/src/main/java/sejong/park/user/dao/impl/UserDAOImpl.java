@@ -18,9 +18,15 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public boolean isEmailExist(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    @Override
     public User CreateUser(User user) {
         return userRepository.save(user);
     }
+
 
     @Override
     public List<User> getAllUsers() {

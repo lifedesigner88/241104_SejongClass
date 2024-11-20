@@ -1,7 +1,6 @@
 package sejong.park.user.service.impl;
 
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Sinks;
 import sejong.park.user.dao.UserDAO;
 import sejong.park.user.dao.impl.UserDAOImpl;
 import sejong.park.user.dto.req.CreateUserReqDto;
@@ -15,7 +14,6 @@ import java.util.stream.Collectors;
 @Service
 public class UserCRUDImpl implements UserCRUD {
 
-
     private final UserDAO userDAO;
 
     public UserCRUDImpl(UserDAOImpl dao) {
@@ -25,6 +23,12 @@ public class UserCRUDImpl implements UserCRUD {
     @Override
     public UserResDto createUser(CreateUserReqDto dto) {
         User user = dto.makeReqDtoToUser();
+
+        if (userDAO.isEmailExist(dto.getEmail())) {
+            user.setName("이메일이 중복됩니다.");
+            return new UserResDto(user);
+        }
+
         User savedUser = userDAO.CreateUser(user);
         return new UserResDto(savedUser);
     }

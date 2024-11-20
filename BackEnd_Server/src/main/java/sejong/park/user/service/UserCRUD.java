@@ -9,4 +9,5 @@ public interface UserCRUD {
 
     UserResDto createUser(CreateUserReqDto dto);
     List<UserResDto> getUsers();
+
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Entity
@@ -18,6 +19,8 @@ public class User {
     private String email;
 
     private String password;
+
+    @Setter
     private String name;
 
     @Builder

@@ -31,6 +31,7 @@ export const useUserStore = defineStore('user', () => {
                 }
             })
             usersInfo.value = await response.json();
+            console.log(usersInfo.value);
         } catch (e) {
             console.log(e);
         }
