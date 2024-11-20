@@ -7,4 +7,5 @@ import java.util.List;
 public interface UserDAO {
     User CreateUser(User user);
     List<User> getAllUsers();
+    User GetUserByEmail(String email);
 }

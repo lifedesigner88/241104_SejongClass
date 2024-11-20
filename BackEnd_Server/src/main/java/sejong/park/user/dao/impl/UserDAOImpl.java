@@ -1,5 +1,6 @@
 package sejong.park.user.dao.impl;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import sejong.park.user.dao.UserDAO;
 import sejong.park.user.entity.User;
@@ -24,6 +25,12 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public User GetUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("이메일이 없는 유저입니다. : " + email));
     }
 
 }

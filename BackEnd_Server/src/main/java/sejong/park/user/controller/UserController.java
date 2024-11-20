@@ -25,7 +25,7 @@ public class UserController {
         this.userCRUD = userCRUDImpl;
     }
 
-    @PostMapping
+    @PostMapping("create")
     public ResponseEntity<UserResDto> createUser(@RequestBody CreateUserReqDto dto) {
 
         UserResDto userResDto = userCRUD.createUser(dto);
@@ -33,7 +33,7 @@ public class UserController {
         return ResponseEntity.ok(userResDto);
     }
 
-    @PostMapping
+    @PostMapping("login")
     public ResponseEntity<AuthResDto> loginUser(@RequestBody AuthReqDto dto) {
 
         return ResponseEntity.ok(null);

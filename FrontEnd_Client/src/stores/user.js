@@ -9,7 +9,7 @@ export const useUserStore = defineStore('user', () => {
     const usersInfo = ref();
     const createUser = async (createUserData) => {
         try {
-            const response = await fetch(`${BASE_URL}/user`, {
+            const response = await fetch(`${BASE_URL}/user/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
