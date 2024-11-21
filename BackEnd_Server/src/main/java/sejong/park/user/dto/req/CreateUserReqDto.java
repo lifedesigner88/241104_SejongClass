@@ -1,6 +1,5 @@
 package sejong.park.user.dto.req;
 
-
 import lombok.Getter;
 import sejong.park.user.entity.User;
 
@@ -14,7 +13,6 @@ public class CreateUserReqDto {
     public User makeReqDtoToUser() {
         return User.builder()
                 .email(this.email)
-                .password(this.password)
                 .name(this.name)
                 .build();
     }

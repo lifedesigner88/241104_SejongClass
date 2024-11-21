@@ -18,15 +18,15 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
 
+    @Setter
     private String password;
 
     @Setter
     private String name;
 
     @Builder
-    public User(String email, String password, String name) {
+    public User(String email, String name) {
         this.email = email;
-        this.password = password;
         this.name = name;
     }
 

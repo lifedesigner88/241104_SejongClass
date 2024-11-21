@@ -33,9 +33,7 @@ public class UserController {
 
     @PostMapping("login")
     public ResponseEntity<AuthResDto> loginUser(@RequestBody AuthReqDto dto) {
-
-        return ResponseEntity.ok(null);
-
+        return ResponseEntity.ok(userCRUD.loginUser(dto));
     }
 
     @GetMapping("list")

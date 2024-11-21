@@ -1,20 +1,28 @@
 <script setup>
 import {onMounted, onUnmounted, ref} from "vue";
 import {useUserStore} from "../stores/user.js";
-import {useCounterStore} from '../stores/counter'
 
 const userStore = useUserStore();
-const counterStore = useCounterStore()
 
 const createResult = ref('');
 const usersInfo = ref('');
 
 const createUserData = ref({
-      name: '',
-      email: '',
-      password: ''
-    }
-);
+  name: '',
+  email: '',
+  password: ''
+});
+const loginUserData1 = ref({
+  num: 1,
+  email: '',
+  password: ''
+});
+
+const loginUserData2 = ref({
+  num: 2,
+  email: '',
+  password: ''
+});
 
 const messages = ref();
 let eventSource = null;
@@ -42,49 +50,72 @@ const createUser = async () => {
   await userStore.createUser(createUserData.value);
   createResult.value = userStore.testResult;
 }
+const login1 = async () => {
 
-const incrementCount = () => {
-  counterStore.increment()
+  await userStore.login(loginUserData1.value);
+
 }
+const login2 = async () => {
 
+  await userStore.login(loginUserData2.value);
+
+}
+const logout = async () => {
+}
 const getUsers = async () => {
   await userStore.getUsers();
   usersInfo.value = userStore.usersInfo;
 }
 
 
-
 </script>
 
 <template>
+
+  <!--  SSE 테스트 -->
+  <div v-if="messages">{{ messages }}</div>
+
+  <!--  로그인 1번 -->
   <div class="container">
+    <div class="testBox">
+      <form class="flex-box">
+        <h3>Login 1</h3>
+        <input v-model="loginUserData1.email" placeholder="userEmail"/>
+        <input v-model="loginUserData1.password" placeholder="userPassword"/>
+        <button @click.prevent="login1">Login</button>
+        <button @click.prevent="getUsers">Logout</button>
+        <h2> {{ createResult.name }} </h2>
+      </form>
+    </div>
+
+    <!--  로그인 2번 -->
+    <div class="testBox">
+      <form class="flex-box">
+        <h3>Login 2</h3>
+        <input v-model="loginUserData2.email" placeholder="userEmail"/>
+        <input v-model="loginUserData2.password" placeholder="userPassword"/>
+        <button @click.prevent="login2">Login</button>
+        <button @click.prevent="getUsers">Logout</button>
+        <h2> {{ createResult.name }} </h2>
+      </form>
+    </div>
+
+    <div class="testBox">
+      <span v-for="user in usersInfo" class="flex-box">
+      {{ user.name }}
+      </span>
+    </div>
 
     <div class="testBox">
       <form class="flex-box">
+        <h3>CreateUser</h3>
         <input v-model="createUserData.name" placeholder="userName"/>
         <input v-model="createUserData.email" placeholder="userEmail"/>
         <input v-model="createUserData.password" placeholder="userPassword"/>
         <button @click.prevent="createUser">Sign Up</button>
         <button @click.prevent="getUsers">Get Users</button>
+        <h2> {{ createResult.name }} </h2>
       </form>
-    </div>
-
-    <div class="testBox">
-      <h1>Counter View</h1>
-      <p>Count: {{ counterStore.count }}</p>
-      <p>Double Count: {{ counterStore.doubleCount }}</p>
-      <button @click="incrementCount">Increment</button>
-    </div>
-
-    <div class="testBox">
-
-      <h1> Server-Sent Event Example</h1>
-      <div v-if="messages">
-            {{ messages }}
-      </div>
-      <span v-for="user in usersInfo" class="flex-box">
-      {{ user.name }}
-      </span>
     </div>
 
   </div>
@@ -94,11 +125,12 @@ const getUsers = async () => {
 
 .container {
   display: flex;
-  width: 80vw;
-  height: 80vh;
+  flex-wrap: wrap;
+  width: 90vw;
   padding: 30px;
   background-color: wheat;
   border-radius: 20px;
+  gap: 10px;
 }
 
 .flex-box {
@@ -111,9 +143,9 @@ const getUsers = async () => {
 
 .testBox {
   width: 300px;
-  height: 200px;
+  height: 300px;
   background-color: #accfac;
-  padding: 20px;
+  padding: 10px;
   border-radius: 20px;
   margin: 10px;
 }

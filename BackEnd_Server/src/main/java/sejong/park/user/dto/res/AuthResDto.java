@@ -1,6 +1,5 @@
 package sejong.park.user.dto.res;
 
-
-public class AuthResDto {
+public record AuthResDto(String email, String name, String token) {
 
 }
